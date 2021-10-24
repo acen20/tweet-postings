@@ -1,30 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[682]:
-
-
 #pandas lib for manipulation of data
 import pandas as pd 
-
-
-# In[683]:
 
 
 #loading file
 file_ = open('smalltweets.txt', 'r').read()
 
 
-# In[684]:
-
-
 lines_ = file_.split("\n") #splitting into lines on "\n" delimeter
 tweets = [] #list to hold all tweets as objects
 postings = [] #final positings will be appended to this list
-match_ltr = 'a'
-
-
-# In[685]:
+match_ltr = ''
 
 
 #following loop is splitting each line into separate columns i.e. ID & Text 
@@ -39,9 +24,6 @@ for line in lines_:
         continue
 
 
-# In[686]:
-
-
 for tweet in tweets:
     txt = tweet['Text'].split(" ")
     txt = filter(lambda x: x.startswith(match_ltr),txt)
@@ -54,22 +36,15 @@ for tweet in tweets:
     })
 
 
-# In[687]:
-
 
 postings = pd.DataFrame(postings)
 
 
-# In[688]:
-
 
 postings['Entries'] = [len(i) for i in postings.Postings]
 postings.sort_values(by = ['Entries'], ascending = False, inplace = True)
-print(f'\n\n=============TERMS STARTING with "A"==============\n')
+print(f'\n\n=============TERMS STARTING with "{match_ltr}"==============\n')
 print(postings)
-
-
-# In[689]:
 
 
 terms = [] #to store all terms
@@ -78,21 +53,12 @@ for posting in postings['Postings']:#Union of all
     terms += posting
 
 
-# In[690]:
-
 
 terms = list(dict.fromkeys(terms)) #Remove duplicate words
 
 
-# In[691]:
-
-
 print(f'\n\n=============UNIQUE TERMS IN ALL DOCS=============\n')
 print(terms)
-
-
-# In[692]:
-
 
 final_postings = {}
 for term in terms:
@@ -100,15 +66,6 @@ for term in terms:
         'Frequency': 0, 
         'Docs': []
     }
-
-
-# In[693]:
-
-
-final_postings
-
-
-# In[694]:
 
 
 print(f'\n\n=============FINAL POSTINGS LIST============\n')
@@ -121,9 +78,6 @@ for term in terms:
 final = pd.DataFrame(final_postings).transpose().sort_values(by = ['Frequency'], ascending = False)
 
 print(final)
-
-
-# In[695]:
 
 
 #MERGING
@@ -143,9 +97,6 @@ except:
     print("The word does not exist")
 
 
-# In[696]:
-
-
 #MERGING
 w1 = 'chocolate'
 w2 = 'strawberry'
@@ -162,8 +113,6 @@ try:
 except:
     print("The word does not exist")
 
-
-# In[697]:
 
 
 #MERGING
