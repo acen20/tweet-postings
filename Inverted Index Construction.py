@@ -10,10 +10,13 @@ lines_ = file_.split("\n") #splitting into lines on "\n" delimeter
 tweets = [] #list to hold all tweets as objects
 postings = [] #final positings will be appended to this list
 match_ltr = ''
+chars_to_remove = [',','.',':', '<','~', '!!!!!', 'w/','  ']
 
 
 #following loop is splitting each line into separate columns i.e. ID & Text 
 for line in lines_:
+    for char in chars_to_remove:
+      line = line.replace(char, '')
     arr = line.split("\t")
     try:
         tweets.append({
